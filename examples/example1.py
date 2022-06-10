@@ -1,36 +1,24 @@
-from grabber import grabber
+from grabber import Grabber
+from PIL import Image
 import cv2
-import time
 
-def main() -> None:
-    """
-    Main function.
-    """
 
-    wm = grabber()
-    chrome = wm.find_window("chrome")
+def main():
 
-    prev_frame_time = 0
-    new_frame_time = 0
+    grabber = Grabber()
 
-    while True:
+    ################ opencv example
+    chrome = grabber.find("chrome")
+    image = grabber.capture(chrome, format="bgr")  # type="cv2"
 
-        width, height = wm.get_window_size(chrome)
-        image = wm.get_window_screen(chrome, 0, 0, width, height, False) # bgr enabled du to opencv
+    cv2.imshow("image", image)
+    cv2.waitKey(0)
 
-        # make cv2 imshow smaller to fit on screen
-        image = cv2.resize(image, (0,0), fx=0.5, fy=0.5)
+    ################### PIL example
+    vscode = grabber.find("vs code")
+    image = grabber.capture(vscode, type="pil")  # format="rgb"
 
-        cv2.imshow("image", image)
-
-        new_frame_time = time.time()
-        fps = 1 / (new_frame_time - prev_frame_time)
-        prev_frame_time = new_frame_time
-
-        # print(int(fps))
-
-        if cv2.waitKey(1) & 0xFF == ord("q"):
-            break
+    image.show()
 
 
 if __name__ == "__main__":
