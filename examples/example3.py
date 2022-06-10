@@ -4,11 +4,11 @@ import cv2
 
 def main():
     grabber = Grabber()
-    chrome = grabber.find()
+    desktop = grabber.find()
 
     while True:
 
-        image = grabber.capture(chrome, format="bgr")
+        image = grabber.capture(desktop, format="bgr")
         image = cv2.resize(image, (0, 0), fx=0.5, fy=0.5)
 
         cv2.imshow("image", image)
