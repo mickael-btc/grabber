@@ -1,5 +1,5 @@
 # grabber
-Python cross-plateform package to make screenshot from any window
+Python linux package to make screenshot from any window
 
 ```python
 from grabber import Grabber
